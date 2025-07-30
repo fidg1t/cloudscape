@@ -2,7 +2,7 @@
 
 int main()
 {
-  Engine engine;
+  Cloudscape::Engine engine;
   engine.Hello();
   return 0;
 }
