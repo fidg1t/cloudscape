@@ -9,3 +9,6 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 # Sub directories
 add_subdirectory(Cloudscape)
 add_subdirectory(Nimbus)
+
+# Set Startup Project from VS
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Nimbus)
