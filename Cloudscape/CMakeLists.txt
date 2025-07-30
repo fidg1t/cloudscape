@@ -1,11 +1,14 @@
-add_library(Cloudscape SHARED
-  src/Engine.cpp
-  include/Core.h
-  include/Engine.h
-)
+project(Cloudscape)
+
+file(GLOB_RECURSE CLOUDSCAPE_HEADERS CONFIGURE_DEPENDS include/*.h)
+file(GLOB_RECURSE CLOUDSCAPE_SOURCES CONFIGURE_DEPENDS src/*.cpp)
+
+add_library(Cloudscape SHARED ${CLOUDSCAPE_HEADERS} ${CLOUDSCAPE_SOURCES})
 
 target_include_directories(Cloudscape PUBLIC include)
-target_compile_definitions(Cloudscape PRIVATE ENGINE_EXPORTS) # defines the macro for dll exporting / importing
+
+# defines the macro for dll exporting / importing
+target_compile_definitions(Cloudscape PRIVATE ENGINE_EXPORTS)
 
 # Set output name for dll (i like lowercase :> )
 
