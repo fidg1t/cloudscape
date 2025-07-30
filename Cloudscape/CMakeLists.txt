@@ -1,5 +1,6 @@
 add_library(Cloudscape SHARED
   src/Engine.cpp
+  include/Core.h
   include/Engine.h
 )
 
