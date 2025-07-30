@@ -1,0 +1,19 @@
+# Build folders
+/build/
+/out/
+/bin/
+/lib/
+
+# Visual Studio
+*.vcxproj*
+*.sln
+*.user
+*.opensdf
+*.sdf
+*.suo
+*.log
+
+# CMake cache
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
