@@ -10,13 +10,15 @@ namespace Cloudscape {
     // For derived classes
     virtual ~System() = default;
 
-    // Pure virtual
+    // Required Implementations
     virtual void Init() = 0;
-    virtual void Load() = 0;
     virtual void Update(float dt) = 0;
-    virtual void Draw() = 0;
-    virtual void Unload() = 0;
     virtual void Exit() = 0;
+
+    // Optional Implementations
+    virtual void Load();
+    virtual void Draw();
+    virtual void Unload();
  
   };
 
