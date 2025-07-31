@@ -20,6 +20,8 @@ namespace Cloudscape {
     void Unload();
     void Exit();
 
+    void AddSystem(System* system);
+
   private:
     std::vector<System*> m_systems;
   };
