@@ -1,10 +1,10 @@
-#include "Engine.h"
+#include "IEngine.h"
 #include "System.h"
 #include <iostream>
 
 namespace Cloudscape {
 
-  class FakeSystem : System
+  class FakeSystem : public System
   {
     void Init() override { std::cout << "FakeSystem Init\n"; }
     void Load() override { std::cout << "FakeSystem Load\n"; }
@@ -18,22 +18,22 @@ namespace Cloudscape {
 
 int main()
 {
-  Cloudscape::Engine engine;
+  Cloudscape::IEngine* engine = Cloudscape::CreateEngine();
   Cloudscape::FakeSystem system;
 
   bool isRunning = true;
   int testCount = 0;
   float dt = 0.0f;
 
-  engine.AddSystem(reinterpret_cast<Cloudscape::System*>(&system));
+  engine->AddSystem(reinterpret_cast<Cloudscape::System*>(&system));
 
-  engine.Init();
-  engine.Load();
+  engine->Init();
+  engine->Load();
 
   while (isRunning)
   {
-    engine.Update(dt);
-    engine.Draw();
+    engine->Update(dt);
+    engine->Draw();
 
     if (testCount++ == 200)
     {
@@ -41,8 +41,10 @@ int main()
     }
   }
 
-  engine.Unload();
-  engine.Exit();
+  engine->Unload();
+  engine->Exit();
+
+  Cloudscape::DestroyEngine(engine);
 
   return 0;
 }

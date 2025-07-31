@@ -1,0 +1,46 @@
+//-----------------------------------------------------------------------------
+//
+// File:    IEngine.h
+// Author:  Nicholas Brennan
+// Purpose: Interface class for Engine. This is called by client application
+//          outside of shared library.
+// 
+//-----------------------------------------------------------------------------
+
+#pragma once
+
+//-----------------------------------------------------------------------------
+// Includes
+//-----------------------------------------------------------------------------
+
+#include <vector>
+#include "Core.h"
+
+//-----------------------------------------------------------------------------
+// Class
+//-----------------------------------------------------------------------------
+
+namespace Cloudscape {
+
+  class System;
+   
+  class CLAPI IEngine
+  {
+  public:
+    virtual ~IEngine() = default;
+
+    virtual void Init() = 0;
+    virtual void Load() = 0;
+    virtual void Update(float dt) = 0;
+    virtual void Draw() = 0;
+    virtual void Unload() = 0;
+    virtual void Exit() = 0;
+
+    virtual void AddSystem(System* system) = 0;
+  };
+
+  // Factory Functions
+  CLAPI IEngine* CreateEngine();
+  CLAPI void DestroyEngine(IEngine* engine);
+
+}

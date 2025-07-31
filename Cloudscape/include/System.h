@@ -16,9 +16,9 @@ namespace Cloudscape {
     virtual void Exit() = 0;
 
     // Optional Implementations
-    virtual void Load();
-    virtual void Draw();
-    virtual void Unload();
+    virtual void Load() {};
+    virtual void Draw() {};
+    virtual void Unload() {};
  
   };
 
