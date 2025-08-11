@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 //
-// File:    IEngine.h
+// File:    CLEngine.h
 // Author:  Nicholas Brennan
 // Purpose: Interface class for Engine. This is called by client application
 //          outside of shared library.
@@ -24,10 +24,10 @@ namespace Cloudscape {
 
   class System;
    
-  class CLAPI IEngine
+  class CLAPI CLEngine
   {
   public:
-    virtual ~IEngine() = default;
+    virtual ~CLEngine() = default;
 
     virtual void Init() = 0;
     virtual void Load() = 0;
@@ -40,7 +40,7 @@ namespace Cloudscape {
   };
 
   // Factory Functions
-  CLAPI IEngine* CreateEngine();
-  CLAPI void DestroyEngine(IEngine* engine);
+  CLAPI CLEngine* CreateEngine();
+  CLAPI void DestroyEngine(CLEngine* engine);
 
 }

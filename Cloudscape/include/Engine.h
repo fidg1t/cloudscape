@@ -14,7 +14,7 @@
 
 #include <vector>
 #include "Core.h"
-#include "IEngine.h"
+#include "CLEngine.h"
 
 //-----------------------------------------------------------------------------
 // Class
@@ -24,7 +24,7 @@ namespace Cloudscape {
 
   class System;
 
-  class Engine : public IEngine
+  class Engine : public CLEngine
   {
   public:
     Engine() = default;

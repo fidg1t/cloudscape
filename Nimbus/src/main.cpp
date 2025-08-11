@@ -1,4 +1,4 @@
-#include "IEngine.h"
+#include "CLEngine.h"
 #include "System.h"
 #include <iostream>
 
@@ -18,7 +18,7 @@ namespace Cloudscape {
 
 int main()
 {
-  Cloudscape::IEngine* engine = Cloudscape::CreateEngine();
+  Cloudscape::CLEngine* engine = Cloudscape::CreateEngine();
   Cloudscape::FakeSystem system;
 
   bool isRunning = true;

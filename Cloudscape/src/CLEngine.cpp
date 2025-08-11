@@ -10,7 +10,7 @@
 // Includes
 //-----------------------------------------------------------------------------
 
-#include "IEngine.h"
+#include "CLEngine.h"
 #include "Engine.h"
 
 //-----------------------------------------------------------------------------
@@ -19,12 +19,12 @@
 
 namespace Cloudscape {
 
-  CLAPI IEngine* CreateEngine()
+  CLAPI CLEngine* CreateEngine()
   {
     return new Engine();
   }
 
-  CLAPI void DestroyEngine(IEngine* engine)
+  CLAPI void DestroyEngine(CLEngine* engine)
   {
     delete engine;
   }
