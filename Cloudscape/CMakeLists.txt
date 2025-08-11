@@ -8,7 +8,7 @@ add_library(Cloudscape SHARED ${CLOUDSCAPE_HEADERS} ${CLOUDSCAPE_SOURCES})
 target_include_directories(Cloudscape PUBLIC include)
 
 # defines the macro for dll exporting / importing
-target_compile_definitions(Cloudscape PRIVATE ENGINE_EXPORTS)
+target_compile_definitions(Cloudscape PRIVATE CL_ENGINE)
 
 # Set output name for dll (i like lowercase :> )
 
