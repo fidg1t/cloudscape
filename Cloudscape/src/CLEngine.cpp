@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 //
-// File:    IEngine.cpp
+// File:    CLEngine.cpp
 // Author:  Nicholas Brennan
 // Purpose: Function declarations for factory functions.
 // 

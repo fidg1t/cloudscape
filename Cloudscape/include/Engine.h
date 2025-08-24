@@ -22,7 +22,7 @@
 
 namespace Cloudscape {
 
-  class System;
+  class CLSystem;
 
   class Engine : public CLEngine
   {
@@ -37,10 +37,10 @@ namespace Cloudscape {
     void Unload() override;
     void Exit() override;
 
-    void AddSystem(System* system) override;
+    void AddSystem(CLSystem* system) override;
 
   private:
-    std::vector<System*> m_systems;
+    std::vector<CLSystem*> m_systems;
   };
 
 }

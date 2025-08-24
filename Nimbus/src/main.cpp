@@ -1,10 +1,10 @@
 #include "CLEngine.h"
-#include "System.h"
+#include "CLSystem.h"
 #include <iostream>
 
 namespace Cloudscape {
 
-  class FakeSystem : public System
+  class FakeSystem : public CLSystem
   {
     void Init() override { std::cout << "FakeSystem Init\n"; }
     void Load() override { std::cout << "FakeSystem Load\n"; }
@@ -25,7 +25,7 @@ int main()
   int testCount = 0;
   float dt = 0.0f;
 
-  engine->AddSystem(reinterpret_cast<Cloudscape::System*>(&system));
+  engine->AddSystem(reinterpret_cast<Cloudscape::CLSystem*>(&system));
 
   engine->Init();
   engine->Load();

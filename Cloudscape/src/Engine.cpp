@@ -12,7 +12,7 @@
 //-----------------------------------------------------------------------------
 
 #include "Engine.h"
-#include "System.h"
+#include "CLSystem.h"
 #include <iostream>
 
 //-----------------------------------------------------------------------------
@@ -69,7 +69,7 @@ namespace Cloudscape {
     }
   }
 
-  void Engine::AddSystem(System* system)
+  void Engine::AddSystem(CLSystem* system)
   {
     m_systems.push_back(system);
   }
