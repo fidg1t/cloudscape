@@ -23,7 +23,7 @@ namespace Cloudscape {
 
   void Engine::Init()
   {
-    for (auto system : m_systems)
+    for (auto& system : m_systems)
     {
       system->Init();
     }
@@ -31,7 +31,7 @@ namespace Cloudscape {
 
   void Engine::Load()
   {
-    for (auto system : m_systems)
+    for (auto& system : m_systems)
     {
       system->Load();
     }
@@ -39,7 +39,7 @@ namespace Cloudscape {
 
   void Engine::Update(float dt)
   {
-    for (auto system : m_systems)
+    for (auto& system : m_systems)
     {
       system->Update(dt);
     }
@@ -47,7 +47,7 @@ namespace Cloudscape {
 
   void Engine::Draw()
   {
-    for (auto system : m_systems)
+    for (auto& system : m_systems)
     {
       system->Draw();
     }
@@ -55,7 +55,7 @@ namespace Cloudscape {
 
   void Engine::Unload()
   {
-    for (auto system : m_systems)
+    for (auto& system : m_systems)
     {
       system->Unload();
     }
@@ -63,7 +63,7 @@ namespace Cloudscape {
 
   void Engine::Exit()
   {
-    for (auto system : m_systems)
+    for (auto& system : m_systems)
     {
       system->Exit();
     }
@@ -71,7 +71,7 @@ namespace Cloudscape {
 
   void Engine::AddSystem(CLSystem* system)
   {
-    m_systems.push_back(system);
+    m_systems.emplace_back(system);
   }
 
 }

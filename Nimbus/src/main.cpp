@@ -19,13 +19,13 @@ namespace Cloudscape {
 int main()
 {
   Cloudscape::CLEngine* engine = Cloudscape::CreateEngine();
-  Cloudscape::FakeSystem system;
+  Cloudscape::FakeSystem* system = new Cloudscape::FakeSystem();
 
   bool isRunning = true;
   int testCount = 0;
   float dt = 0.0f;
 
-  engine->AddSystem(reinterpret_cast<Cloudscape::CLSystem*>(&system));
+  engine->AddSystem(system);
 
   engine->Init();
   engine->Load();

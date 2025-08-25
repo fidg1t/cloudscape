@@ -13,16 +13,16 @@
 //-----------------------------------------------------------------------------
 
 #include <vector>
+#include <memory>
 #include "Core.h"
 #include "CLEngine.h"
+#include "CLSystem.h"
 
 //-----------------------------------------------------------------------------
 // Class
 //-----------------------------------------------------------------------------
 
 namespace Cloudscape {
-
-  class CLSystem;
 
   class Engine : public CLEngine
   {
@@ -40,7 +40,7 @@ namespace Cloudscape {
     void AddSystem(CLSystem* system) override;
 
   private:
-    std::vector<CLSystem*> m_systems;
+    std::vector<std::unique_ptr<CLSystem>> m_systems;
   };
 
 }
