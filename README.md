@@ -1,4 +1,4 @@
-# 🌫️ Clouscape 🌫️
+# 🌫️ Cloudscape 🌫️
 ## About
 Cloudscape is a 3D video game engine (there will be more to say later).
 ## Goals
