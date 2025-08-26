@@ -6,6 +6,7 @@ namespace Cloudscape {
 
   class FakeSystem : public CLSystem
   {
+  public:
     void Init() override { std::cout << "FakeSystem Init\n"; }
     void Load() override { std::cout << "FakeSystem Load\n"; }
     void Update(float dt) override { std::cout << "FakeSystem Updating...\n"; }
@@ -19,13 +20,13 @@ namespace Cloudscape {
 int main()
 {
   Cloudscape::CLEngine* engine = Cloudscape::CreateEngine();
-  Cloudscape::FakeSystem* system = new Cloudscape::FakeSystem();
+  std::unique_ptr<Cloudscape::FakeSystem> system = std::make_unique<Cloudscape::FakeSystem>();
 
   bool isRunning = true;
   int testCount = 0;
   float dt = 0.0f;
 
-  engine->AddSystem(system);
+  engine->AddSystem(std::move(system));
 
   engine->Init();
   engine->Load();

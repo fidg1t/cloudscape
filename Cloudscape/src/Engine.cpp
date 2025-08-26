@@ -69,9 +69,9 @@ namespace Cloudscape {
     }
   }
 
-  void Engine::AddSystem(CLSystem* system)
+  void Engine::AddSystem(std::unique_ptr<CLSystem> system)
   {
-    m_systems.emplace_back(system);
+    m_systems.push_back(std::move(system));
   }
 
 }

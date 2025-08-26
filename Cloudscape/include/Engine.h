@@ -37,7 +37,7 @@ namespace Cloudscape {
     void Unload() override;
     void Exit() override;
 
-    void AddSystem(CLSystem* system) override;
+    void AddSystem(std::unique_ptr<CLSystem> system) override;
 
   private:
     std::vector<std::unique_ptr<CLSystem>> m_systems;

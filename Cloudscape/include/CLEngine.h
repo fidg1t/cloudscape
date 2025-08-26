@@ -37,7 +37,7 @@ namespace Cloudscape {
     virtual void Unload() = 0;
     virtual void Exit() = 0;
 
-    virtual void AddSystem(CLSystem* system) = 0;
+    virtual void AddSystem(std::unique_ptr<CLSystem> system) = 0;
   };
 
   // Factory Functions
