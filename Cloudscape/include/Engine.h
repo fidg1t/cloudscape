@@ -27,7 +27,7 @@ namespace Cloudscape {
   class Engine : public CLEngine
   {
   public:
-    Engine() = default;
+    Engine();
     ~Engine() = default;
 
     void Init() override;

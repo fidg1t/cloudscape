@@ -28,9 +28,9 @@ namespace Cloudscape {
 	void PlatformSystem::Update(float dt)
 	{
 		SDL_Event event;
+		CL_INFO("hi");
 		while (SDL_PollEvent(&event))
 		{
-			dt += 1.f;
 		}
 	}
 

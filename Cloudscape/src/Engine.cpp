@@ -13,6 +13,7 @@
 
 #include "Engine.h"
 #include "CLSystem.h"
+#include "PlatformSystem.h"
 #include <iostream>
 
 //-----------------------------------------------------------------------------
@@ -20,6 +21,11 @@
 //-----------------------------------------------------------------------------
 
 namespace Cloudscape {
+
+  Engine::Engine()
+  {
+    AddSystem(std::make_unique<PlatformSystem>());
+  }
 
   void Engine::Init()
   {
@@ -73,5 +79,4 @@ namespace Cloudscape {
   {
     m_systems.push_back(std::move(system));
   }
-
 }
