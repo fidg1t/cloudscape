@@ -14,7 +14,7 @@ target_include_directories(Cloudscape PUBLIC include)
 target_include_directories(Cloudscape PRIVATE ${CMAKE_SOURCE_DIR}/vendor/SDL3/include)
 
 # Link SDL3 privately to the engine
-target_link_libraries(Cloudscape PRIVATE SDL3)
+target_link_libraries(Cloudscape PRIVATE SDL3::SDL3)
 
 # Defines the macro for dll exporting / importing
 target_compile_definitions(Cloudscape PRIVATE CL_ENGINE)

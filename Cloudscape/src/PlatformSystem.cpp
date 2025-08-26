@@ -22,6 +22,22 @@ namespace Cloudscape {
 	void PlatformSystem::Init()
 	{
 		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
+		CL_INFO("Platform System Init");
+	}
+
+	void PlatformSystem::Update(float dt)
+	{
+		SDL_Event event;
+		while (SDL_PollEvent(&event))
+		{
+			dt += 1.f;
+		}
+	}
+
+	void PlatformSystem::Exit()
+	{
+		SDL_Quit();
+		CL_INFO("Platform System Exit");
 	}
 
 }

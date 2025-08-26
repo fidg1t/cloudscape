@@ -10,7 +10,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
-add_subdirectory(vendor/SDL3)
+add_subdirectory(vendor/SDL3 EXCLUDE_FROM_ALL)
 add_subdirectory(Cloudscape)
 add_subdirectory(Nimbus)
 

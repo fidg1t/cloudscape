@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <format>
 
 // CLAPI Macro for Exporting Functions to DLL on Windows
 
@@ -16,7 +17,7 @@
 
 ///TODO: Add spdlog to project and replace these!
 // Logging
-#define CL_INFO(X)		std::cout << std::format("INFO: {}\n", x)
+#define CL_INFO(x)		std::cout << std::format("INFO: {}\n", x)
 #define CL_ERROR(x)		std::cout << std::format("ERROR: {}\n", x)
 
 #ifdef _DEBUG
