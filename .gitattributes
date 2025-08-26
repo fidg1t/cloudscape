@@ -1,0 +1,2 @@
+# Ignore vendored code for linguist statistics
+vendor/**           linguist-vendored
