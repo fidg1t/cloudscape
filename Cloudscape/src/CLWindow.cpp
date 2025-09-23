@@ -1,8 +1,8 @@
 //-----------------------------------------------------------------------------
 //
-// File:    PlatformSystem.cpp
+// File:    CLWindow.cpp
 // Author:  Nicholas Brennan
-// Purpose: Handles setup and management of graphics api (SDL3 + OpenGL)
+// Purpose: Handles window creation and management
 // 
 //-----------------------------------------------------------------------------
 
@@ -10,9 +10,8 @@
 // Includes
 //-----------------------------------------------------------------------------
 
-#include "PlatformSystem.h"
 #include "CLWindow.h"
-#include "SDL3/SDL.h"
+#include "SDL3/SDL_video.h"
 
 //-----------------------------------------------------------------------------
 // Methods
@@ -20,32 +19,25 @@
 
 namespace Cloudscape {
 
-	void PlatformSystem::Init()
+	CLWindow::CLWindow()
 	{
-		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
-		CL_INFO("Platform System Init");
-
-		m_window = std::make_unique<CLWindow>();
+		m_cfg = CLWindowCFG();
+		m_handle = std::make_unique<CLWindowImpl>();
+		m_handle->window = SDL_CreateWindow(m_cfg.title.c_str(), m_cfg.width, m_cfg.height, NULL);
 	}
 
-	void PlatformSystem::Update(float dt)
+	CLWindow::CLWindow(const CLWindowCFG& cfg) : m_cfg(cfg)
 	{
-		SDL_Event event;
-		CL_INFO(1/dt);
-		while (SDL_PollEvent(&event))
+		m_handle = std::make_unique<CLWindowImpl>();
+		m_handle->window = SDL_CreateWindow(m_cfg.title.c_str(), m_cfg.width, m_cfg.height, NULL);
+	}
+
+	CLWindow::~CLWindow()
+	{
+		if (m_handle.get())
 		{
+			SDL_DestroyWindow(m_handle->window);
 		}
-	}
-
-	void PlatformSystem::Exit()
-	{
-		SDL_Quit();
-		CL_INFO("Platform System Exit");
-	}
-
-	std::unique_ptr<CLWindow>& PlatformSystem::GetWindow()
-	{
-		return m_window;
 	}
 
 }
