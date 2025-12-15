@@ -23,7 +23,7 @@ namespace Cloudscape {
 	CLWindow::CLWindow(const CLWindowCFG& cfg) : m_cfg(cfg), m_shouldClose(false)
 	{
 		m_handle = std::make_unique<CLWindowImpl>();
-		m_handle->window = SDL_CreateWindow(m_cfg.title.c_str(), m_cfg.width, m_cfg.height, NULL);
+		m_handle->window = SDL_CreateWindow(m_cfg.title.c_str(), m_cfg.width, m_cfg.height, SDL_WINDOW_OPENGL);
 	}
 
 	CLWindow::~CLWindow()
@@ -45,6 +45,11 @@ namespace Cloudscape {
 				m_shouldClose = true;
 			}
 		}
+	}
+
+	CLWindowImpl& CLWindow::GetWindowHandle() const
+	{
+		return *m_handle;
 	}
 
 	bool CLWindow::ShouldClose() const

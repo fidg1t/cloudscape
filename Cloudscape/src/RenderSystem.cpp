@@ -12,7 +12,9 @@
 
 #include "RenderSystem.h"
 #include "CLWindow.h"
+#include "glad/glad.h"
 #include "SDL3/SDL.h"
+#include "glm/glm.hpp"
 
 //-----------------------------------------------------------------------------
 // Methods
@@ -22,10 +24,29 @@ namespace Cloudscape {
 
 	RenderSystem::RenderSystem(CLWindowCFG cfg)
 	{
-		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 		CL_INFO("Render System Init");
+		
+		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
+
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
 
 		m_window = std::make_shared<CLWindow>(cfg);
+
+		SDL_GLContext glContext = SDL_GL_CreateContext(m_window->GetWindowHandle().window);
+		SDL_GL_MakeCurrent(m_window->GetWindowHandle().window, glContext);
+
+		if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
+		{
+			throw std::runtime_error("Failed to initialize GLAD");
+		}
+
+		int w, h;
+		SDL_GetWindowSize(m_window->GetWindowHandle().window, &w, &h);
+		glViewport(0, 0, w, h);
 	}
 
 	RenderSystem::~RenderSystem()
@@ -39,9 +60,20 @@ namespace Cloudscape {
 		m_window.get()->Update(dt);
 	}
 
+	void RenderSystem::Draw()
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		SDL_GL_SwapWindow(m_window->GetWindowHandle().window);
+	}
+
 	std::shared_ptr<CLWindow>& RenderSystem::GetWindow()
 	{
 		return m_window;
+	}
+
+	void RenderSystem::SetClearColor(glm::vec4 color)
+	{
+		glClearColor(color.r, color.g, color.b, color.a);
 	}
 
 }

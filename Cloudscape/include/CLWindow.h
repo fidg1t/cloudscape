@@ -26,6 +26,8 @@ namespace Cloudscape {
 
 		void Update(float dt);
 
+		CLWindowImpl& GetWindowHandle() const;
+
 		bool ShouldClose() const;
 
 	private:

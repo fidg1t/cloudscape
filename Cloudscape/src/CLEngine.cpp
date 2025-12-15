@@ -65,10 +65,20 @@ namespace Cloudscape {
     {
       system->Load();
     }
+
+    for (auto& layer : m_layers)
+    {
+      layer->Load();
+    }
   }
 
   void CLEngine::Update(float dt)
   {
+    for (auto& layer : m_layers)
+    {
+      layer->Update(dt);
+    }
+
     for (auto& system : m_systems)
     {
       system->Update(dt);
@@ -77,10 +87,16 @@ namespace Cloudscape {
 
   void CLEngine::Draw()
   {
+    for (auto& layer : m_layers)
+    {
+      layer->Draw();
+    }
+
     for (auto& system : m_systems)
     {
       system->Draw();
     }
+
   }
 
   void CLEngine::Unload()
@@ -89,44 +105,11 @@ namespace Cloudscape {
     {
       system->Unload();
     }
-  }
 
-  template <typename TSystem, typename... Args>
-  requires(std::is_base_of_v<CLSystem, TSystem>)
-  void CLEngine::AddSystem(Args&&... args)
-  {
-    m_systems.push_back(std::make_unique<TSystem>(std::forward<Args>(args)...));
-  }
-
-  template <typename TSystem>
-  requires(std::is_base_of_v<CLSystem, TSystem>)
-  TSystem* CLEngine::GetSystem()
-  {
-    for (const auto& system : m_systems)
+    for (auto& layer : m_layers)
     {
-      if (auto foundSystem = dynamic_cast<TSystem*>(system.get()))
-        return foundSystem;
+      layer->Unload();
     }
-    return nullptr;
-  }
-
-  template <typename TLayer, typename... Args>
-  requires(std::is_base_of_v<CLSystem, TLayer>)
-  void CLEngine::AddLayer(Args&&... args)
-  {
-    m_systems.push_back(std::make_unique<TLayer>(std::forward<Args>(args)...));
-  }
-
-  template <typename TLayer>
-  requires(std::is_base_of_v<CLSystem, TLayer>)
-  TLayer* CLEngine::GetLayer()
-  {
-    for (const auto& layer : m_layers)
-    {
-      if (auto foundLayer = dynamic_cast<TLayer*>(layer.get()))
-        return foundLayer;
-    }
-    return nullptr;
   }
 
   CLEngine& CLEngine::Get()

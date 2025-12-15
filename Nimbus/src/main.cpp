@@ -1,4 +1,5 @@
 #include "CLEngine.h"
+#include "SandboxLayer.h"
 
 int main()
 {
@@ -7,7 +8,7 @@ int main()
 
 	Cloudscape::CLEngine engine(eSpec);
 
-
+	engine.AddLayer<SandboxLayer>();
 
 	engine.Run();
 }
