@@ -22,9 +22,18 @@ target_include_directories(glad
 )
 
 # Hide vendor projects in VS
-set_property(DIRECTORY vendor/SDL3 PROPERTY FOLDER "External")
-set_property(DIRECTORY vendor/glm  PROPERTY FOLDER "External")
-set_target_properties(glad PROPERTIES FOLDER "External")
+foreach(tgt
+  SDL3-shared
+  SDL3-static
+  SDL_uclibc
+  glm
+  glad
+)
+  if (TARGET ${tgt})
+    set_target_properties(${tgt} PROPERTIES FOLDER "Vendor")
+  endif()
+endforeach()
+
 
 target_include_directories(Cloudscape
   PUBLIC
