@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <format>
+#include <memory>
+#include <vector>
 
 // CLAPI Macro for Exporting Functions to DLL on Windows
 

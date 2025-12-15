@@ -13,7 +13,6 @@
 // Includes
 //-----------------------------------------------------------------------------
 
-#include <vector>
 #include "CLSystem.h"
 #include "CLWindow.h"
 #include "Core.h"

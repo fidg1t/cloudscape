@@ -39,15 +39,15 @@ namespace Cloudscape {
     Load();
 
     m_running = true;
-    uint64_t lastTime = 0, currTime = SDL_GetTicks();
+    uint64_t lastTime = 0, currTime = SDL_GetPerformanceCounter();
     float dt = 0.0f;
 
     while (m_running)
     {
       lastTime = currTime;
-      currTime = SDL_GetTicks();
+      currTime = SDL_GetPerformanceCounter();
 
-      dt = (float)((currTime - lastTime) * 1000 / (float)SDL_GetPerformanceFrequency());
+      dt = (currTime - lastTime) / (double)SDL_GetPerformanceFrequency();
 
       Update(dt);
       Draw();
