@@ -11,7 +11,7 @@
 //-----------------------------------------------------------------------------
 
 #include "CLEngine.h"
-#include "Engine.h"
+#include "PlatformSystem.h"
 #include "SDL3/SDL.h"
 
 //-----------------------------------------------------------------------------
@@ -20,16 +20,29 @@
 
 namespace Cloudscape {
 
+  static CLEngine* s_Engine = nullptr;
+
+  CLEngine::CLEngine(const CLEngineCFG& cfg) : m_cfg(cfg)
+  {
+    s_Engine = this;
+
+    AddSystem<PlatformSystem>(cfg.window);
+  }
+
+  CLEngine::~CLEngine()
+  {
+    s_Engine = nullptr;
+  }
+
   void CLEngine::Run()
   {
-    Init();
     Load();
 
-    bool running = true;
+    m_running = true;
     uint64_t lastTime = 0, currTime = SDL_GetTicks();
     float dt = 0.0f;
 
-    while (running)
+    while (m_running)
     {
       lastTime = currTime;
       currTime = SDL_GetTicks();
@@ -39,21 +52,66 @@ namespace Cloudscape {
       Update(dt);
       Draw();
 
-      if (m_shouldExit) running = false;
+      if (GetSystem<PlatformSystem>()->GetWindow().get()->ShouldClose()) 
+        m_running = false;
     }
 
     Unload();
-    Exit();
   }
 
-  CLAPI CLEngine* CreateEngine()
+  void CLEngine::Load()
   {
-    return new Engine();
+    for (auto& system : m_systems)
+    {
+      system->Load();
+    }
   }
 
-  CLAPI void DestroyEngine(CLEngine* engine)
+  void CLEngine::Update(float dt)
   {
-    delete engine;
+    for (auto& system : m_systems)
+    {
+      system->Update(dt);
+    }
   }
 
+  void CLEngine::Draw()
+  {
+    for (auto& system : m_systems)
+    {
+      system->Draw();
+    }
+  }
+
+  void CLEngine::Unload()
+  {
+    for (auto& system : m_systems)
+    {
+      system->Unload();
+    }
+  }
+
+  template <typename TSystem, typename... Args>
+  requires(std::is_base_of_v<CLSystem, TSystem>)
+  void CLEngine::AddSystem(Args&&... args)
+  {
+    m_systems.push_back(std::make_unique<TSystem>(std::forward<Args>(args)...));
+  }
+
+  template <typename TSystem>
+  requires(std::is_base_of_v<CLSystem, TSystem>)
+  TSystem* CLEngine::GetSystem()
+  {
+    for (const auto& system : m_systems)
+    {
+      if (auto foundSystem = dynamic_cast<TSystem*>(system.get()))
+        return foundSystem;
+    }
+    return nullptr;
+  }
+
+  CLEngine& CLEngine::Get()
+  {
+    return *s_Engine;
+  }
 }

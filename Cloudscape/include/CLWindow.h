@@ -21,11 +21,15 @@ namespace Cloudscape {
 	class CLAPI CLWindow
 	{
 	public:
-		CLWindow();
-		CLWindow(const CLWindowCFG& cfg);
+		CLWindow(const CLWindowCFG& cfg = CLWindowCFG());
 		~CLWindow();
 
+		void Update(float dt);
+
+		bool ShouldClose() const;
+
 	private:
+		bool m_shouldClose;
 		CLWindowCFG m_cfg;
 
 		std::unique_ptr<CLWindowImpl> m_handle;

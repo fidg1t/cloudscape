@@ -14,7 +14,8 @@
 //-----------------------------------------------------------------------------
 
 #include <vector>
-#include <memory>
+#include "CLSystem.h"
+#include "CLWindow.h"
 #include "Core.h"
 
 //-----------------------------------------------------------------------------
@@ -23,29 +24,41 @@
 
 namespace Cloudscape {
 
-  class CLSystem;
-   
+  struct CLEngineCFG
+  {
+    CLWindowCFG window;
+  };
+
   class CLAPI CLEngine
   {
   public:
-    virtual ~CLEngine() = default;
+    CLEngine(const CLEngineCFG& cfg = CLEngineCFG());
+    ~CLEngine();
 
-    virtual void Init() = 0;
-    virtual void Load() = 0;
-    virtual void Update(float dt) = 0;
-    virtual void Draw() = 0;
-    virtual void Unload() = 0;
-    virtual void Exit() = 0;
-
-    virtual void AddSystem(std::unique_ptr<CLSystem> system) = 0;
+    CLEngine(const CLEngine&) = delete;
+    CLEngine& operator=(const CLEngine&) = delete;
 
     void Run();
+
+    void Load();
+    void Update(float dt);
+    void Draw();
+    void Unload();
+
+    template <typename TSystem, typename... Args>
+    requires(std::is_base_of_v<CLSystem, TSystem>)
+    void AddSystem(Args&&... args);
+
+    template <typename TSystem>
+    requires(std::is_base_of_v<CLSystem, TSystem>)
+    TSystem* GetSystem();
+
+    CLEngine& Get();
+
   private:
-    bool m_shouldExit = false;
+    bool m_running = false;
+    CLEngineCFG m_cfg;
+
+    std::vector<std::unique_ptr<CLSystem>> m_systems;
   };
-
-  // Factory Functions
-  CLAPI CLEngine* CreateEngine();
-  CLAPI void DestroyEngine(CLEngine* engine);
-
 }

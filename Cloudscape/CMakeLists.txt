@@ -7,6 +7,8 @@ file(GLOB_RECURSE CLOUDSCAPE_SOURCES CONFIGURE_DEPENDS src/*.cpp)
 # Add the engine library
 add_library(Cloudscape SHARED ${CLOUDSCAPE_HEADERS} ${CLOUDSCAPE_SOURCES})
 
+add_subdirectory(vendor/SDL3 EXCLUDE_FROM_ALL)
+
 # Include engine headers
 target_include_directories(Cloudscape PUBLIC include)
 

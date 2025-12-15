@@ -9,17 +9,15 @@ namespace Cloudscape {
   {
   public:
 
-    PlatformSystem() = default;
-    ~PlatformSystem() = default;
+    PlatformSystem(CLWindowCFG cfg);
+    ~PlatformSystem();
 
-    virtual void Init() override;
     virtual void Update(float dt) override;
-    virtual void Exit() override;
 
-    std::unique_ptr<CLWindow>& GetWindow();
+    std::shared_ptr<CLWindow>& GetWindow();
 
   private:
-    std::unique_ptr<CLWindow> m_window;
+    std::shared_ptr<CLWindow> m_window;
   };
 
 }

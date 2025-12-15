@@ -3,11 +3,9 @@
 
 int main()
 {
-  Cloudscape::CLEngine* engine = Cloudscape::CreateEngine();
+	Cloudscape::CLEngineCFG eSpec;
+	eSpec.window.title = "Nimbus";
 
-  engine->Run();
-
-  Cloudscape::DestroyEngine(engine);
-
-  return 0;
+	Cloudscape::CLEngine engine(eSpec);
+	engine.Run();
 }

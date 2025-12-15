@@ -11,6 +11,7 @@
 //-----------------------------------------------------------------------------
 
 #include "CLWindow.h"
+#include "SDL3/SDL_events.h"
 #include "SDL3/SDL_video.h"
 
 //-----------------------------------------------------------------------------
@@ -19,14 +20,7 @@
 
 namespace Cloudscape {
 
-	CLWindow::CLWindow()
-	{
-		m_cfg = CLWindowCFG();
-		m_handle = std::make_unique<CLWindowImpl>();
-		m_handle->window = SDL_CreateWindow(m_cfg.title.c_str(), m_cfg.width, m_cfg.height, NULL);
-	}
-
-	CLWindow::CLWindow(const CLWindowCFG& cfg) : m_cfg(cfg)
+	CLWindow::CLWindow(const CLWindowCFG& cfg) : m_cfg(cfg), m_shouldClose(false)
 	{
 		m_handle = std::make_unique<CLWindowImpl>();
 		m_handle->window = SDL_CreateWindow(m_cfg.title.c_str(), m_cfg.width, m_cfg.height, NULL);
@@ -38,6 +32,24 @@ namespace Cloudscape {
 		{
 			SDL_DestroyWindow(m_handle->window);
 		}
+	}
+
+	void CLWindow::Update(float dt)
+	{
+		SDL_Event event;
+		CL_INFO(1 / dt);
+		while (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
+			{
+				m_shouldClose = true;
+			}
+		}
+	}
+
+	bool CLWindow::ShouldClose() const
+	{
+		return m_shouldClose;
 	}
 
 }

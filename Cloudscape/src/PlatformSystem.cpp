@@ -20,30 +20,26 @@
 
 namespace Cloudscape {
 
-	void PlatformSystem::Init()
+	PlatformSystem::PlatformSystem(CLWindowCFG cfg)
 	{
 		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 		CL_INFO("Platform System Init");
 
-		m_window = std::make_unique<CLWindow>();
+		m_window = std::make_shared<CLWindow>(cfg);
 	}
 
-	void PlatformSystem::Update(float dt)
-	{
-		SDL_Event event;
-		CL_INFO(1/dt);
-		while (SDL_PollEvent(&event))
-		{
-		}
-	}
-
-	void PlatformSystem::Exit()
+	PlatformSystem::~PlatformSystem()
 	{
 		SDL_Quit();
 		CL_INFO("Platform System Exit");
 	}
 
-	std::unique_ptr<CLWindow>& PlatformSystem::GetWindow()
+	void PlatformSystem::Update(float dt)
+	{
+		m_window.get()->Update(dt);
+	}
+
+	std::shared_ptr<CLWindow>& PlatformSystem::GetWindow()
 	{
 		return m_window;
 	}
