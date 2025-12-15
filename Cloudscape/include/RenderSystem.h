@@ -5,12 +5,12 @@
 
 namespace Cloudscape {
 
-  class PlatformSystem : public CLSystem
+  class RenderSystem : public CLSystem
   {
   public:
 
-    PlatformSystem(CLWindowCFG cfg);
-    ~PlatformSystem();
+    RenderSystem(CLWindowCFG cfg);
+    ~RenderSystem();
 
     virtual void Update(float dt) override;
 

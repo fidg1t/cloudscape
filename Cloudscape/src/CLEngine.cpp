@@ -11,7 +11,7 @@
 //-----------------------------------------------------------------------------
 
 #include "CLEngine.h"
-#include "PlatformSystem.h"
+#include "RenderSystem.h"
 #include "SDL3/SDL.h"
 
 //-----------------------------------------------------------------------------
@@ -26,7 +26,7 @@ namespace Cloudscape {
   {
     s_Engine = this;
 
-    AddSystem<PlatformSystem>(cfg.window);
+    AddSystem<RenderSystem>(cfg.window);
   }
 
   CLEngine::~CLEngine()
@@ -52,7 +52,7 @@ namespace Cloudscape {
       Update(dt);
       Draw();
 
-      if (GetSystem<PlatformSystem>()->GetWindow().get()->ShouldClose()) 
+      if (GetSystem<RenderSystem>()->GetWindow().get()->ShouldClose()) 
         m_running = false;
     }
 
