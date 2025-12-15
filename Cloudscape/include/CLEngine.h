@@ -14,6 +14,7 @@
 //-----------------------------------------------------------------------------
 
 #include "CLSystem.h"
+#include "CLLayer.h"
 #include "CLWindow.h"
 #include "Core.h"
 
@@ -44,6 +45,7 @@ namespace Cloudscape {
     void Draw();
     void Unload();
 
+
     template <typename TSystem, typename... Args>
     requires(std::is_base_of_v<CLSystem, TSystem>)
     void AddSystem(Args&&... args);
@@ -52,6 +54,15 @@ namespace Cloudscape {
     requires(std::is_base_of_v<CLSystem, TSystem>)
     TSystem* GetSystem();
 
+
+    template <typename TLayer, typename... Args>
+    requires(std::is_base_of_v<CLSystem, TLayer>)
+    void AddLayer(Args&&... args);
+
+    template <typename TLayer>
+    requires(std::is_base_of_v<CLSystem, TLayer>)
+    TLayer* GetLayer();
+
     CLEngine& Get();
 
   private:
@@ -59,5 +70,6 @@ namespace Cloudscape {
     CLEngineCFG m_cfg;
 
     std::vector<std::unique_ptr<CLSystem>> m_systems;
+    std::vector<std::unique_ptr<CLLayer>> m_layers;
   };
 }

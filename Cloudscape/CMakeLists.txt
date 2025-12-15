@@ -1,25 +1,32 @@
 project(Cloudscape)
 
-# Gather engine sources and headers
 file(GLOB_RECURSE CLOUDSCAPE_HEADERS CONFIGURE_DEPENDS include/*.h)
 file(GLOB_RECURSE CLOUDSCAPE_SOURCES CONFIGURE_DEPENDS src/*.cpp)
 
-# Add the engine library
-add_library(Cloudscape SHARED ${CLOUDSCAPE_HEADERS} ${CLOUDSCAPE_SOURCES})
+add_library(Cloudscape SHARED
+  ${CLOUDSCAPE_HEADERS}
+  ${CLOUDSCAPE_SOURCES}
+)
 
 add_subdirectory(vendor/SDL3 EXCLUDE_FROM_ALL)
 
-# Include engine headers
-target_include_directories(Cloudscape PUBLIC include)
+set_property(
+  DIRECTORY vendor/SDL3
+  PROPERTY FOLDER "Vendor"
+)
 
-# Include SDL3 headers privately
-target_include_directories(Cloudscape PRIVATE ${CMAKE_SOURCE_DIR}/vendor/SDL3/include)
+target_include_directories(Cloudscape
+  PUBLIC
+    include
+)
 
-# Link SDL3 privately to the engine
-target_link_libraries(Cloudscape PRIVATE SDL3::SDL3)
+target_link_libraries(Cloudscape
+  PRIVATE
+    SDL3::SDL3
+)
 
-# Defines the macro for dll exporting / importing
 target_compile_definitions(Cloudscape PRIVATE CL_ENGINE)
 
-# Set output name for dll (I like lowercase :>)
-set_target_properties(Cloudscape PROPERTIES OUTPUT_NAME "cloudscape")
+set_target_properties(Cloudscape
+  PROPERTIES OUTPUT_NAME "cloudscape"
+)

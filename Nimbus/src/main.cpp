@@ -1,5 +1,4 @@
 #include "CLEngine.h"
-#include <iostream>
 
 int main()
 {
@@ -7,5 +6,8 @@ int main()
 	eSpec.window.title = "Nimbus";
 
 	Cloudscape::CLEngine engine(eSpec);
+
+
+
 	engine.Run();
 }

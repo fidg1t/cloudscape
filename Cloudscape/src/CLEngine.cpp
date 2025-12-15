@@ -110,6 +110,25 @@ namespace Cloudscape {
     return nullptr;
   }
 
+  template <typename TLayer, typename... Args>
+  requires(std::is_base_of_v<CLSystem, TLayer>)
+  void CLEngine::AddLayer(Args&&... args)
+  {
+    m_systems.push_back(std::make_unique<TLayer>(std::forward<Args>(args)...));
+  }
+
+  template <typename TLayer>
+  requires(std::is_base_of_v<CLSystem, TLayer>)
+  TLayer* CLEngine::GetLayer()
+  {
+    for (const auto& layer : m_layers)
+    {
+      if (auto foundLayer = dynamic_cast<TLayer*>(layer.get()))
+        return foundLayer;
+    }
+    return nullptr;
+  }
+
   CLEngine& CLEngine::Get()
   {
     return *s_Engine;
