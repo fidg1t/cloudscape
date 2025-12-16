@@ -6,12 +6,12 @@
 
 namespace Cloudscape {
 
-  class CLAPI RenderSystem : public CLSystem
+  class CLAPI PlatformSystem : public CLSystem
   {
   public:
 
-    RenderSystem(CLWindowCFG cfg);
-    ~RenderSystem();
+    PlatformSystem(CLWindowCFG cfg);
+    ~PlatformSystem();
 
     virtual void Update(float dt) override;
     virtual void Draw() override;

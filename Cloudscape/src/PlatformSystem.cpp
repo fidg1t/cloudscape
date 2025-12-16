@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 //
-// File:    RenderSystem.cpp
+// File:    PlatformSystem.cpp
 // Author:  Nicholas Brennan
 // Purpose: Handles setup and management of graphics api (SDL3 + OpenGL)
 // 
@@ -10,7 +10,7 @@
 // Includes
 //-----------------------------------------------------------------------------
 
-#include "RenderSystem.h"
+#include "PlatformSystem.h"
 #include "CLWindow.h"
 #include "glad/glad.h"
 #include "SDL3/SDL.h"
@@ -22,7 +22,7 @@
 
 namespace Cloudscape {
 
-	RenderSystem::RenderSystem(CLWindowCFG cfg)
+	PlatformSystem::PlatformSystem(CLWindowCFG cfg)
 	{
 		CL_INFO("Render System Init");
 		
@@ -46,29 +46,29 @@ namespace Cloudscape {
 		}
 	}
 
-	RenderSystem::~RenderSystem()
+	PlatformSystem::~PlatformSystem()
 	{
 		SDL_Quit();
 		CL_INFO("Render System Exit");
 	}
 
-	void RenderSystem::Update(float dt)
+	void PlatformSystem::Update(float dt)
 	{
 		m_window.get()->Update(dt);
 	}
 
-	void RenderSystem::Draw()
+	void PlatformSystem::Draw()
 	{
 		SDL_GL_SwapWindow(m_window->GetWindowHandle().window);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	std::shared_ptr<CLWindow>& RenderSystem::GetWindow()
+	std::shared_ptr<CLWindow>& PlatformSystem::GetWindow()
 	{
 		return m_window;
 	}
 
-	void RenderSystem::SetClearColor(glm::vec4 color)
+	void PlatformSystem::SetClearColor(glm::vec4 color)
 	{
 		glClearColor(color.r, color.g, color.b, color.a);
 	}
