@@ -67,14 +67,14 @@ namespace Cloudscape {
 
 
     template <typename TLayer, typename... Args>
-      requires(std::is_base_of_v<CLLayer, TLayer>)
+    requires(std::is_base_of_v<CLLayer, TLayer>)
     void AddLayer(Args&&... args)
     {
       m_layers.push_back(std::make_unique<TLayer>(std::forward<Args>(args)...));
     }
 
     template <typename TLayer>
-      requires(std::is_base_of_v<CLLayer, TLayer>)
+    requires(std::is_base_of_v<CLLayer, TLayer>)
     TLayer* GetLayer()
     {
       for (const auto& layer : m_layers)

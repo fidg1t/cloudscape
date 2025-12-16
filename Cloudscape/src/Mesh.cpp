@@ -7,79 +7,21 @@ namespace Cloudscape {
 
 	namespace Lightning {
 	
-		Mesh::Mesh()
+		Mesh::Mesh(const std::vector<Vertex>& vertices,
+               const std::vector<GLuint>& indices)
+      : m_vertices(vertices), m_indices(indices)
     {
-      std::ifstream file("shader/default.vert", std::ios::in);
-      std::stringstream buffer;
-      buffer << file.rdbuf();
-      std::string source = buffer.str();
-      const char* vertShaderSource = source.c_str();
+      glGenVertexArrays(1, &m_vao);
+      glGenBuffers(1, &m_vbo);
+      glGenBuffers(1, &m_ebo);
 
-      std::cout << std::filesystem::current_path() << std::endl;
+      glBindVertexArray(m_vao);
 
-      vertShader = glCreateShader(GL_VERTEX_SHADER);
-      glShaderSource(vertShader, 1, &vertShaderSource, nullptr);
-      glCompileShader(vertShader);
+      glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+      glBufferData(GL_ARRAY_BUFFER, m_vertices.size() * sizeof(Vertex), m_vertices.data(), GL_STATIC_DRAW);
 
-      GLint success = 0;
-      glGetShaderiv(vertShader, GL_COMPILE_STATUS, &success);
-      if (!success)
-      {
-        char infoLog[1024];
-        glGetShaderInfoLog(vertShader, sizeof(infoLog), nullptr, infoLog);
-        CL_ERROR("Vertex shader compile error:\n" + std::string(infoLog));
-        assert(0);
-      }
-
-      buffer.str("");
-      buffer.clear();
-      file = std::ifstream("shader/default.frag");
-      buffer << file.rdbuf();
-      source = buffer.str();
-      const char* fragShaderSource = source.c_str();
-
-      fragShader = glCreateShader(GL_FRAGMENT_SHADER);
-      glShaderSource(fragShader, 1, &fragShaderSource, nullptr);
-      glCompileShader(fragShader);
-
-      glGetShaderiv(fragShader, GL_COMPILE_STATUS, &success);
-      if (!success)
-      {
-        char infoLog[1024];
-        glGetShaderInfoLog(fragShader, sizeof(infoLog), nullptr, infoLog);
-        CL_ERROR("Fragment shader compile error:\n" + std::string(infoLog));
-        assert(0);
-      }
-
-      program = glCreateProgram();
-      glAttachShader(program, vertShader);
-      glAttachShader(program, fragShader);
-      glLinkProgram(program);
-
-      glGetProgramiv(program, GL_LINK_STATUS, &success);
-      if (!success)
-      {
-        char infoLog[1024];
-        glGetProgramInfoLog(program, sizeof(infoLog), nullptr, infoLog);
-        CL_ERROR("Shader link error:\n" + std::string(infoLog));
-        assert(0);
-      }
-
-      glDeleteShader(vertShader);
-      glDeleteShader(fragShader);
-
-
-      glGenVertexArrays(1, &vao);
-      glGenBuffers(1, &vbo);
-      glGenBuffers(1, &ebo);
-
-      glBindVertexArray(vao);
-
-      glBindBuffer(GL_ARRAY_BUFFER, vbo);
-      glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertices), m_vertices.data(), GL_STATIC_DRAW);
-
-      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-      glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(m_indices), m_indices.data(), GL_STATIC_DRAW);
+      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
+      glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(GLuint), m_indices.data(), GL_STATIC_DRAW);
 
       glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, vert));
       glEnableVertexAttribArray(0);
@@ -95,10 +37,35 @@ namespace Cloudscape {
 
 		Mesh::~Mesh()
 		{
-
+      glDeleteVertexArrays(1, &m_vao);
+      glDeleteBuffers(1, &m_vbo);
+      glDeleteBuffers(1, &m_ebo);
 		}
 
+    void Mesh::Draw()
+    {
+      glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, nullptr);
+    }
 
+    void Mesh::Bind() const
+    {
+      glBindVertexArray(m_vao);
+    }
+
+    void Mesh::Unbind() const
+    {
+      glBindVertexArray(0);
+    }
+
+    size_t Mesh::GetVertexCount() const
+    {
+      return m_vertices.size();
+    }
+
+    size_t Mesh::GetIndexCount() const
+    {
+      return m_indices.size();
+    }
 
 	}
 

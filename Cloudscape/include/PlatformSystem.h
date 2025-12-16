@@ -2,7 +2,7 @@
 
 #include "CLSystem.h"
 #include "CLWindow.h"
-#include "glm/glm.hpp"
+#include "SDL3/SDL.h"
 
 namespace Cloudscape {
 
@@ -13,14 +13,16 @@ namespace Cloudscape {
     PlatformSystem(CLWindowCFG cfg);
     ~PlatformSystem();
 
-    virtual void Update(float dt) override;
-    virtual void Draw() override;
+    void Update(float dt) override;
+    void Draw() override;
+
+    void SwapBuffers();
 
     std::shared_ptr<CLWindow>& GetWindow();
 
-    void SetClearColor(glm::vec4 color);
-
   private:
+    SDL_GLContext m_glContext;
+
     std::shared_ptr<CLWindow> m_window;
   };
 

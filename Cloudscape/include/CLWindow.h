@@ -27,12 +27,18 @@ namespace Cloudscape {
 		void Update(float dt);
 
 		CLWindowImpl& GetWindowHandle() const;
+		unsigned GetWidth() const;
+		unsigned GetHeight() const;
 
 		bool ShouldClose() const;
 
+
 	private:
-		bool m_shouldClose;
 		CLWindowCFG m_cfg;
+		unsigned m_width, m_height;
+
+		bool m_shouldClose;
+
 
 		std::unique_ptr<CLWindowImpl> m_handle;
 	};

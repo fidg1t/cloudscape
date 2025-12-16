@@ -3,7 +3,9 @@
 #include "CLLayer.h"
 #include "glm/glm.hpp"
 #include "glad/glad.h"
-#include "CubeMesh.h"
+#include "Mesh.h"
+#include "Shader.h"
+#include "Camera.h"
 
 class SandboxLayer : public Cloudscape::CLLayer
 {
@@ -15,5 +17,7 @@ public:
 	virtual void Draw() override;
 
 private:
-	Cloudscape::CubeMesh cube;
+	Cloudscape::Lightning::Mesh cube;
+	Cloudscape::Lightning::Shader shader;
+	Cloudscape::Lightning::Camera camera;
 };

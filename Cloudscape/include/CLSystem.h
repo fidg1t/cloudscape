@@ -10,11 +10,9 @@ namespace Cloudscape {
     // For derived classes
     virtual ~CLSystem() = default;
 
-    // Required Implementation
-    virtual void Update(float dt) = 0;
-
     // Optional Implementations
     virtual void Load() {};
+    virtual void Update(float dt) {};
     virtual void Draw() {};
     virtual void Unload() {};
  

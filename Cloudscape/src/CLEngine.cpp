@@ -12,6 +12,7 @@
 
 #include "CLEngine.h"
 #include "PlatformSystem.h"
+#include "RenderSystem.h"
 #include "SDL3/SDL.h"
 
 //-----------------------------------------------------------------------------
@@ -27,6 +28,7 @@ namespace Cloudscape {
     s_Engine = this;
 
     AddSystem<PlatformSystem>(cfg.window);
+    AddSystem<RenderSystem>();
   }
 
   CLEngine::~CLEngine()
