@@ -2,6 +2,8 @@
 
 #include "CLLayer.h"
 #include "glm/glm.hpp"
+#include "glad/glad.h"
+#include "CubeMesh.h"
 
 class SandboxLayer : public Cloudscape::CLLayer
 {
@@ -11,7 +13,7 @@ public:
 
 	virtual void Update(float dt) override;
 	virtual void Draw() override;
+
 private:
-	glm::vec4 color;
-	float timer;
+	Cloudscape::CubeMesh cube;
 };

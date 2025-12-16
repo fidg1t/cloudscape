@@ -39,14 +39,11 @@ namespace Cloudscape {
 		SDL_GLContext glContext = SDL_GL_CreateContext(m_window->GetWindowHandle().window);
 		SDL_GL_MakeCurrent(m_window->GetWindowHandle().window, glContext);
 
+		CL_INFO("GLAD Loaded");
 		if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
 		{
 			throw std::runtime_error("Failed to initialize GLAD");
 		}
-
-		int w, h;
-		SDL_GetWindowSize(m_window->GetWindowHandle().window, &w, &h);
-		glViewport(0, 0, w, h);
 	}
 
 	RenderSystem::~RenderSystem()
@@ -62,8 +59,8 @@ namespace Cloudscape {
 
 	void RenderSystem::Draw()
 	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		SDL_GL_SwapWindow(m_window->GetWindowHandle().window);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	std::shared_ptr<CLWindow>& RenderSystem::GetWindow()

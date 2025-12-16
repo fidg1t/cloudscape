@@ -74,29 +74,28 @@ namespace Cloudscape {
 
   void CLEngine::Update(float dt)
   {
-    for (auto& layer : m_layers)
-    {
-      layer->Update(dt);
-    }
-
     for (auto& system : m_systems)
     {
       system->Update(dt);
+    }
+
+    for (auto& layer : m_layers)
+    {
+      layer->Update(dt);
     }
   }
 
   void CLEngine::Draw()
   {
-    for (auto& layer : m_layers)
-    {
-      layer->Draw();
-    }
-
     for (auto& system : m_systems)
     {
       system->Draw();
     }
 
+    for (auto& layer : m_layers)
+    {
+      layer->Draw();
+    }
   }
 
   void CLEngine::Unload()
