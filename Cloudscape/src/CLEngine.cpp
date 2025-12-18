@@ -56,8 +56,13 @@ namespace Cloudscape {
 
       dt = (currTime - lastTime) / (double)SDL_GetPerformanceFrequency();
 
+      GetSystem<RenderSystem>()->BeginFrame();
+
       Update(dt);
       Draw();
+
+      GetSystem<RenderSystem>()->EndFrame();
+
 
       if (GetSystem<PlatformSystem>()->GetWindow().get()->ShouldClose()) 
         m_running = false;

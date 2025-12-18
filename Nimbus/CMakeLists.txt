@@ -32,7 +32,7 @@ add_custom_command(TARGET Nimbus POST_BUILD
 target_link_libraries(Nimbus
   PRIVATE
     Cloudscape
-    glad        # only if Nimbus calls OpenGL directly
+    glad
 )
 
 target_include_directories(Nimbus PRIVATE include)

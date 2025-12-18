@@ -26,6 +26,9 @@ namespace Cloudscape {
 
 		void Update(float dt);
 
+		void RequestClose();
+		void RequestResize(unsigned width, unsigned height);
+
 		CLWindowImpl& GetWindowHandle() const;
 		unsigned GetWidth() const;
 		unsigned GetHeight() const;

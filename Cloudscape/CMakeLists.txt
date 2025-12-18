@@ -19,7 +19,7 @@ add_library(glad STATIC vendor/glad/src/glad.c)
 target_include_directories(glad PUBLIC vendor/glad/include)
 
 # Hide vendor projects
-foreach(tgt SDL3-shared SDL3-static SDL_uclibc glm glad)
+foreach(tgt SDL3-shared SDL3-static SDL_uclibc glm glad spdlog)
   if (TARGET ${tgt})
     set_target_properties(${tgt} PROPERTIES FOLDER "Vendor")
   endif()

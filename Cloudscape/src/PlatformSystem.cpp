@@ -12,7 +12,10 @@
 
 #include "PlatformSystem.h"
 #include "CLWindow.h"
+#include "CLEngine.h"
+#include "RenderSystem.h"
 #include "glad/glad.h"
+#include "SDL3/SDL.h"
 
 //-----------------------------------------------------------------------------
 // Methods
@@ -20,7 +23,12 @@
 
 namespace Cloudscape {
 
-	PlatformSystem::PlatformSystem(CLWindowCFG cfg)
+	struct PlatformSystem::RenderImpl
+	{
+		SDL_GLContext glContext = nullptr;
+	};
+
+	PlatformSystem::PlatformSystem(CLWindowCFG cfg) : m_impl(std::make_unique<RenderImpl>())
 	{	
 		// SDL Init
 		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
@@ -34,8 +42,8 @@ namespace Cloudscape {
 		// Make Window
 		m_window = std::make_shared<CLWindow>(cfg);
 
-		m_glContext = SDL_GL_CreateContext(m_window->GetWindowHandle().window);
-		SDL_GL_MakeCurrent(m_window->GetWindowHandle().window, m_glContext);
+		m_impl->glContext = SDL_GL_CreateContext(m_window->GetWindowHandle().window);
+		SDL_GL_MakeCurrent(m_window->GetWindowHandle().window, m_impl->glContext);
 
 		CL_INFO("GLAD Loaded");
 		if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
@@ -49,18 +57,35 @@ namespace Cloudscape {
 
 	PlatformSystem::~PlatformSystem()
 	{
-		SDL_GL_DestroyContext(m_glContext);
+		SDL_GL_DestroyContext(m_impl->glContext);
 		SDL_Quit();
 	}
 
 	void PlatformSystem::Update(float dt)
 	{
-		m_window->Update(dt);
+		SDL_Event event;
+		while (SDL_PollEvent(&event))
+		{
+			switch(event.type)
+			{
+			case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
+				m_window->RequestClose();
+				break;
+
+			case SDL_EVENT_WINDOW_RESIZED:
+				unsigned width = event.window.data1;
+				unsigned height = event.window.data2;
+
+				m_window->RequestResize(width, height);
+				CLEngine::Get().GetSystem<RenderSystem>()->OnResize(width, height);
+				break;
+			}
+		}
 	}
 
 	void PlatformSystem::Draw()
 	{
-		SwapBuffers();
+
 	}
 
 	void PlatformSystem::SwapBuffers()

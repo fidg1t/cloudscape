@@ -1,22 +1,22 @@
 #include "Camera.h"
+#include "CLWindow.h"
 #include "glm/gtc/matrix_transform.hpp"
 
 namespace Cloudscape::Lightning {
 
 	//TEMPORARY!! construct this better
-	Camera::Camera(void)
+	Camera::Camera(float fov, float aspect)
 	{
 		m_right = glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
 		m_up = glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
 		m_back = glm::vec4(0.0f, 0.0f, 1.0f, 0.0f);
 		m_eye = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
-		m_vpWidth = 2.0f;
-		m_vpHeight = 2.0f;
-		m_vpDist = 1.0f;
+		m_aspect = aspect;
+		m_fov = fov;
 
-		m_npDist = 0.1f;
-		m_fpDist = 10.0f;
+		m_np = 0.1f;
+		m_fp = 10.0f;
 	}
 
 	Camera::~Camera()
@@ -28,6 +28,11 @@ namespace Cloudscape::Lightning {
 	glm::mat4 Camera::LookAt(glm::vec3 lookPoint)
 	{
 		return glm::lookAt(glm::vec3(m_eye), lookPoint, glm::vec3(m_up));
+	}
+
+	void Camera::SetViewport(unsigned width, unsigned height)
+	{
+		m_aspect = static_cast<float>(width) / static_cast<float>(height);
 	}
 
 	void Camera::SetPosition(glm::vec3 pos)
@@ -62,6 +67,11 @@ namespace Cloudscape::Lightning {
 		m_up = Rotation * m_up;
 	}
 
+	glm::vec3 Camera::GetPosition()
+	{
+		return glm::vec3(m_eye);
+	}
+
 	glm::mat4 Camera::GetViewMatrix()
 	{
 		glm::mat4 view = glm::mat4(
@@ -76,19 +86,7 @@ namespace Cloudscape::Lightning {
 
 	glm::mat4 Camera::GetProjMatrix()
 	{
-		float W = m_vpWidth;
-		float H = m_vpHeight;
-		float D = m_vpDist;
-
-		float N = m_npDist;
-		float F = m_fpDist;
-
-		return {
-			2.0f * D / W, 0, 0, 0,
-			0, 2.0f * D / H, 0, 0,
-			0, 0, (N + F) / (N - F), -1.0f,
-			0, 0, (2.0f * N * F) / (N - F), 0
-		};
+		return glm::perspective(m_fov, m_aspect, m_np, m_fp);
 	}
 
 }

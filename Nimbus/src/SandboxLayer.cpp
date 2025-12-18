@@ -1,5 +1,7 @@
 #include "SandboxLayer.h"
 #include "CLEngine.h"
+#include "CLWindow.h"
+#include "PlatformSystem.h"
 #include "RenderSystem.h"
 
 std::vector<Cloudscape::Lightning::Vertex> cubeVertices =
@@ -62,6 +64,9 @@ SandboxLayer::SandboxLayer()
 {
   Cloudscape::CLEngine::Get().GetSystem<Cloudscape::RenderSystem>()->
     SetClearColor(glm::vec4(0.0f, 0.4f, 0.35f, 1.0f));
+
+  Cloudscape::CLEngine::Get().GetSystem<Cloudscape::RenderSystem>()->
+    SetActiveCamera(camera);
 }
 
 SandboxLayer::~SandboxLayer()
@@ -73,11 +78,13 @@ void SandboxLayer::Update(float dt)
 {
   orbitTime += dt;
 
+  std::shared_ptr<Cloudscape::CLWindow> window = Cloudscape::CLEngine::Get().GetSystem<Cloudscape::PlatformSystem>()->GetWindow();
+
   float x = cosf(orbitTime) * orbitRadius;
   float z = sinf(orbitTime) * orbitRadius;
 
-
   camera.SetPosition({ x, 2.5f, z });
+  camera.SetViewport(window->GetWidth(), window->GetHeight());
   
   shader.SetMat4("viewMat", camera.LookAt({ 0.0f, 0.0f, 0.0f }));
   shader.SetMat4("projMat", camera.GetProjMatrix());

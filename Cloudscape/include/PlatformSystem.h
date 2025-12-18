@@ -2,7 +2,6 @@
 
 #include "CLSystem.h"
 #include "CLWindow.h"
-#include "SDL3/SDL.h"
 
 namespace Cloudscape {
 
@@ -17,11 +16,14 @@ namespace Cloudscape {
     void Draw() override;
 
     void SwapBuffers();
+    void ResizeCallback();
 
     std::shared_ptr<CLWindow>& GetWindow();
 
   private:
-    SDL_GLContext m_glContext;
+    struct RenderImpl;
+
+    std::unique_ptr<RenderImpl> m_impl;
 
     std::shared_ptr<CLWindow> m_window;
   };
