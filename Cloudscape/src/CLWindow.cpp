@@ -38,7 +38,6 @@ namespace Cloudscape {
 	void CLWindow::Update(float dt)
 	{
 		SDL_Event event;
-		CL_INFO(1 / dt);
 		while (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)

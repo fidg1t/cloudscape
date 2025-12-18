@@ -9,7 +9,7 @@ namespace Cloudscape::Lightning {
 		m_right = glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
 		m_up = glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
 		m_back = glm::vec4(0.0f, 0.0f, 1.0f, 0.0f);
-		m_eye = glm::vec4(0.0f, 0.0f, 9.0f, 1.0f);
+		m_eye = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 
 		m_vpWidth = 2.0f;
 		m_vpHeight = 2.0f;
@@ -24,14 +24,15 @@ namespace Cloudscape::Lightning {
 	
 	}
 
-	void Camera::SetPosition(glm::vec3 pos)
-	{
-		m_eye = glm::vec4(pos, 1.0f);
-	}
 
 	glm::mat4 Camera::LookAt(glm::vec3 lookPoint)
 	{
 		return glm::lookAt(glm::vec3(m_eye), lookPoint, glm::vec3(m_up));
+	}
+
+	void Camera::SetPosition(glm::vec3 pos)
+	{
+		m_eye = glm::vec4(pos, 1.0f);
 	}
 
 	void Camera::SetYaw(float angle)

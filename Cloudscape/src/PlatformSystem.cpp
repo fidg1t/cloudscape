@@ -21,16 +21,17 @@
 namespace Cloudscape {
 
 	PlatformSystem::PlatformSystem(CLWindowCFG cfg)
-	{
-		CL_INFO("Render System Init");
-		
+	{	
+		// SDL Init
 		SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 
+		// OpenGL Init
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
+		// Make Window
 		m_window = std::make_shared<CLWindow>(cfg);
 
 		m_glContext = SDL_GL_CreateContext(m_window->GetWindowHandle().window);
@@ -39,7 +40,8 @@ namespace Cloudscape {
 		CL_INFO("GLAD Loaded");
 		if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
 		{
-			throw std::runtime_error("Failed to initialize GLAD");
+			CL_FATAL("Failed to initialize GLAD");
+			throw std::runtime_error("Failed to initalize GLAD");
 		}
 
 		glViewport(0, 0, m_window->GetWidth(), m_window->GetHeight());
@@ -47,7 +49,6 @@ namespace Cloudscape {
 
 	PlatformSystem::~PlatformSystem()
 	{
-		CL_INFO("Render System Exit");
 		SDL_GL_DestroyContext(m_glContext);
 		SDL_Quit();
 	}

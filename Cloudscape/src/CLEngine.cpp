@@ -25,6 +25,9 @@ namespace Cloudscape {
 
   CLEngine::CLEngine(const CLEngineCFG& cfg) : m_cfg(cfg)
   {
+    Log::Init();
+    CL_INFO("Creating Engine");
+
     s_Engine = this;
 
     AddSystem<PlatformSystem>(cfg.window);
@@ -33,6 +36,8 @@ namespace Cloudscape {
 
   CLEngine::~CLEngine()
   {
+    CL_INFO("Destroying Engine");
+
     s_Engine = nullptr;
   }
 
@@ -65,11 +70,13 @@ namespace Cloudscape {
   {
     for (auto& system : m_systems)
     {
+      CL_INFO("Loading system: {}", typeid(*system).name());
       system->Load();
     }
 
     for (auto& layer : m_layers)
     {
+      CL_INFO("Loading layer: {}", typeid(*layer).name());
       layer->Load();
     }
   }
@@ -104,11 +111,13 @@ namespace Cloudscape {
   {
     for (auto& system : m_systems)
     {
+      CL_INFO("Unloading system: {}", typeid(*system).name());
       system->Unload();
     }
 
     for (auto& layer : m_layers)
     {
+      CL_INFO("Unloading layer: {}", typeid(*layer).name());
       layer->Unload();
     }
   }

@@ -11,9 +11,9 @@ namespace Cloudscape::Lightning {
 		Camera(void);
 		~Camera();
 
-		void SetPosition(glm::vec3 pos);
 		glm::mat4 LookAt(glm::vec3 lookPoint);
 
+		void SetPosition(glm::vec3 pos);
 		void SetYaw(float angle);
 		void SetPitch(float angle);
 		void SetRoll(float angle);

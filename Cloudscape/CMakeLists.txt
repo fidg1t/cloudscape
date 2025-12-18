@@ -13,6 +13,7 @@ add_library(Cloudscape SHARED
 # Vendor libs
 add_subdirectory(vendor/SDL3 EXCLUDE_FROM_ALL)
 add_subdirectory(vendor/glm  EXCLUDE_FROM_ALL)
+add_subdirectory(vendor/spdlog EXCLUDE_FROM_ALL)
 
 add_library(glad STATIC vendor/glad/src/glad.c)
 target_include_directories(glad PUBLIC vendor/glad/include)
@@ -37,6 +38,7 @@ target_include_directories(Cloudscape PUBLIC include)
 target_link_libraries(Cloudscape
   PUBLIC
     glm::glm
+    spdlog::spdlog
   PRIVATE
     SDL3::SDL3
     glad

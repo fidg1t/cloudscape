@@ -50,7 +50,10 @@ namespace Cloudscape {
     requires(std::is_base_of_v<CLSystem, TSystem>)
     void AddSystem(Args&&... args)
     {
+      CL_INFO("Creating System: {}", typeid(TSystem).name());
       m_systems.push_back(std::make_unique<TSystem>(std::forward<Args>(args)...));
+
+      CL_INFO("System Created: {}", typeid(TSystem).name());
     }
 
     template <typename TSystem>
@@ -70,7 +73,11 @@ namespace Cloudscape {
     requires(std::is_base_of_v<CLLayer, TLayer>)
     void AddLayer(Args&&... args)
     {
+      CL_INFO("Creating Layer: {}", typeid(TLayer).name());
+
       m_layers.push_back(std::make_unique<TLayer>(std::forward<Args>(args)...));
+
+      CL_INFO("Layer Created: {}", typeid(TLayer).name());
     }
 
     template <typename TLayer>

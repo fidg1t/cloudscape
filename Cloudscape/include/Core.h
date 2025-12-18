@@ -17,13 +17,16 @@
 	#define CLAPI
 #endif
 
-///TODO: Add spdlog to project and replace these!
+#include "Log.h"
+
 // Logging
-#define CL_INFO(x)		std::cout << std::format("INFO: {}\n", x)
-#define CL_ERROR(x)		std::cout << std::format("ERROR: {}\n", x)
+#define CL_INFO(...)		Cloudscape::Log::GetCoreLogger()->info(__VA_ARGS__)
+#define CL_WARN(...)		Cloudscape::Log::GetCoreLogger()->warn(__VA_ARGS__)
+#define CL_ERROR(...)		Cloudscape::Log::GetCoreLogger()->error(__VA_ARGS__)
+#define CL_FATAL(...)		Cloudscape::Log::GetCoreLogger()->critical(__VA_ARGS__)
 
 #ifdef _DEBUG
-	#define CL_DEBUG(x) std::cout << std::format("DEBUG: {}\n", x)
+	#define CL_DEBUG(...)	Cloudscape::Log::GetCoreLogger()->debug(__VA_ARGS__)
 #else
-	#define CL_DEBUG(x)
+	#define CL_DEBUG(...)
 #endif
