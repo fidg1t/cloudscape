@@ -85,7 +85,9 @@ void SandboxLayer::Update(float dt)
 
   camera.SetPosition({ x, 2.5f, z });
   camera.SetViewport(window->GetWidth(), window->GetHeight());
-  
+
+  shader.SetVec3("lightPos", glm::vec3(2.0f, 2.0f, -2.0f));
+  shader.SetVec3("eyePos", camera.GetPosition());
   shader.SetMat4("viewMat", camera.LookAt({ 0.0f, 0.0f, 0.0f }));
   shader.SetMat4("projMat", camera.GetProjMatrix());
 }

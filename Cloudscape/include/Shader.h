@@ -16,6 +16,7 @@ namespace Cloudscape::Lightning {
 		void Bind() const;
 		void Unbind() const;
 
+		void SetVec3(std::string name, glm::vec3 vec);
 		void SetMat4(std::string name, glm::mat4 mat);
 	private:
 		GLuint m_program;

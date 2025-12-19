@@ -47,6 +47,12 @@ namespace Cloudscape::Lightning {
 		glUseProgram(0);
 	}
 
+	void Shader::SetVec3(std::string name, glm::vec3 vec)
+	{
+		GLint loc = glGetUniformLocation(m_program, name.c_str());
+		glUniform3fv(loc, 1, &vec[0]);
+	}
+
 	void Shader::SetMat4(std::string name, glm::mat4 mat)
 	{
 		GLint loc = glGetUniformLocation(m_program, name.c_str());
