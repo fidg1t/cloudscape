@@ -51,6 +51,7 @@ namespace Cloudscape {
     void AddSystem(Args&&... args)
     {
       CL_INFO("Creating System: {}", typeid(TSystem).name());
+
       m_systems.push_back(std::make_unique<TSystem>(std::forward<Args>(args)...));
 
       CL_INFO("System Created: {}", typeid(TSystem).name());

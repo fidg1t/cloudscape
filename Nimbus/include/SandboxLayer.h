@@ -23,8 +23,9 @@ public:
 	SandboxLayer();
 	virtual ~SandboxLayer();
 
-	virtual void Update(float dt) override;
-	virtual void Draw() override;
+	void Load() override;
+	void Update(float dt) override;
+	void Draw() override;
 
 private:
 	Entity cube;

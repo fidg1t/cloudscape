@@ -37,7 +37,7 @@ namespace Cloudscape {
 
 	void CLWindow::Update(float dt)
 	{
-
+		
 	}
 
 	void CLWindow::RequestClose()

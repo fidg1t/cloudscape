@@ -8,7 +8,10 @@ namespace Cloudscape {
 
 	RenderSystem::RenderSystem()
 	{
-
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		glFrontFace(GL_CCW);
 	}
 
 	RenderSystem::~RenderSystem()
@@ -18,10 +21,7 @@ namespace Cloudscape {
 
 	void RenderSystem::Load()
 	{
-		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
-		glFrontFace(GL_CCW);
+
 	}
 
 	void RenderSystem::BeginFrame()

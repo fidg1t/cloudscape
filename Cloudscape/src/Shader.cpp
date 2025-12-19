@@ -61,10 +61,14 @@ namespace Cloudscape::Lightning {
 
 	std::string Shader::LoadFile(const std::string& path)
 	{
+		CL_INFO("Loading File: {}", path);
 		std::ifstream file(path);
 
 		if (!file.is_open())
+		{
+			CL_FATAL("Failed to open shader file {}", path);
 			throw std::runtime_error("Failed to open shader file: " + path);
+		}
 
 		std::stringstream buffer;
 		buffer << file.rdbuf();
@@ -86,7 +90,16 @@ namespace Cloudscape::Lightning {
 		{
 			char infoLog[1024];
 			glGetShaderInfoLog(shader, sizeof(infoLog), nullptr, infoLog);
-			CL_ERROR("Shader compile error:\n" + std::string(infoLog));
+			switch (type)
+			{
+			case GL_VERTEX_SHADER:
+				CL_ERROR("Vertex Shader compile error:\n" + std::string(infoLog));
+				break;
+			case GL_FRAGMENT_SHADER:
+				CL_ERROR("Fragment Shader compile error:\n" + std::string(infoLog));
+				break;
+			}
+			CL_WARN("Shader Compilation Failed. Engine will continue to run, but graphical problems may ensue.");
 		}
 
 		return shader;

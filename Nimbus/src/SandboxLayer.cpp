@@ -63,7 +63,7 @@ SandboxLayer::SandboxLayer()
   camera()
 {
   Cloudscape::CLEngine::Get().GetSystem<Cloudscape::RenderSystem>()->
-    SetClearColor(glm::vec4(0.0f, 0.4f, 0.35f, 1.0f));
+    SetClearColor(glm::vec4(0.529f, 0.808f, 0.922f, 1.0f));
 
   Cloudscape::CLEngine::Get().GetSystem<Cloudscape::RenderSystem>()->
     SetActiveCamera(camera);
@@ -74,6 +74,11 @@ SandboxLayer::SandboxLayer()
 SandboxLayer::~SandboxLayer()
 {
   delete cube.mesh;
+}
+
+void SandboxLayer::Load()
+{
+
 }
 
 void SandboxLayer::Update(float dt)
