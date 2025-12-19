@@ -94,7 +94,6 @@ void SandboxLayer::Update(float dt)
   shader.SetMat4("projMat", camera.GetProjMatrix());
 }
 
-
 void SandboxLayer::Draw()
 {
   shader.Bind();
