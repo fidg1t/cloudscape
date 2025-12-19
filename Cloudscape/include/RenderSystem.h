@@ -25,7 +25,7 @@ namespace Cloudscape {
 	private:
 		Lightning::Camera* m_activeCamera = nullptr;
 
-		glm::vec4 m_clearColor;
+		glm::vec4 m_clearColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 	};
 
 }
