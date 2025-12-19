@@ -1,7 +1,7 @@
 #version 460 core
 
-in vec3 normal;
-in vec3 position;
+in vec4 worldPosition;
+in vec4 worldNormal;
 
 uniform vec3 lightPos;
 uniform vec3 eyePos;
@@ -10,15 +10,15 @@ out vec4 fragColor;
 
 void main()
 {
-  vec3 diffuse_coefficient = (normal + 1.0) * 0.5;
+  vec3 diffuse_coefficient = vec3(0.0, 0.8, 0.4);
   vec3 ambient_color = vec3(0.3, 0.3, 0.3);
   vec3 light_color = vec3(1.0, 1.0, 1.0);
 
     // Declarations
-  vec3 L = normalize(lightPos - position);
-  vec3 m = normalize(normal);
+  vec3 L = normalize(lightPos - vec3(worldPosition));
+  vec3 m = normalize(vec3(worldNormal));
   float ML = max(0, dot(m, L));
-  vec3 V = normalize(eyePos - position);
+  vec3 V = normalize(eyePos - vec3(worldPosition));
   vec3 RL = normalize(2 * ML * m - L);
 
   // Ambient Calculation

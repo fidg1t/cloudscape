@@ -58,7 +58,7 @@ float orbitRadius = 5.0f;
 
 
 SandboxLayer::SandboxLayer()
-  : cube(Cloudscape::Lightning::Mesh(cubeVertices, cubeIndices)),
+  : cube(),
   shader("shader/default.vert", "shader/default.frag"),
   camera()
 {
@@ -67,11 +67,13 @@ SandboxLayer::SandboxLayer()
 
   Cloudscape::CLEngine::Get().GetSystem<Cloudscape::RenderSystem>()->
     SetActiveCamera(camera);
+
+  cube.mesh = new Cloudscape::Lightning::Mesh(cubeVertices, cubeIndices);
 }
 
 SandboxLayer::~SandboxLayer()
 {
-
+  delete cube.mesh;
 }
 
 void SandboxLayer::Update(float dt)
@@ -80,14 +82,14 @@ void SandboxLayer::Update(float dt)
 
   std::shared_ptr<Cloudscape::CLWindow> window = Cloudscape::CLEngine::Get().GetSystem<Cloudscape::PlatformSystem>()->GetWindow();
 
-  float x = cosf(orbitTime) * orbitRadius;
-  float z = sinf(orbitTime) * orbitRadius;
-
-  camera.SetPosition({ x, 2.5f, z });
+  camera.SetPosition({ 1.0f, 1.0f, 1.0f });
   camera.SetViewport(window->GetWidth(), window->GetHeight());
 
-  shader.SetVec3("lightPos", glm::vec3(2.0f, 2.0f, -2.0f));
+  cube.transform.SetRotation({0.0f, orbitTime * 120.0f, 0.0f });
+
+  shader.SetVec3("lightPos", glm::vec3(10.0f, 10.0f, -10.0f));
   shader.SetVec3("eyePos", camera.GetPosition());
+  shader.SetMat4("modelMat", cube.transform.GetModelingTransform());
   shader.SetMat4("viewMat", camera.LookAt({ 0.0f, 0.0f, 0.0f }));
   shader.SetMat4("projMat", camera.GetProjMatrix());
 }
@@ -96,6 +98,6 @@ void SandboxLayer::Update(float dt)
 void SandboxLayer::Draw()
 {
   shader.Bind();
-  cube.Bind();
-  cube.Draw();
+  cube.mesh->Bind();
+  cube.mesh->Draw();
 }

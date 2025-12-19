@@ -6,6 +6,16 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "Camera.h"
+#include "Transform.h"
+
+
+struct Entity
+{
+	Entity() = default;
+
+	Cloudscape::Lightning::Mesh* mesh;
+	Cloudscape::Transform transform = Cloudscape::Transform();
+};
 
 class SandboxLayer : public Cloudscape::CLLayer
 {
@@ -17,7 +27,7 @@ public:
 	virtual void Draw() override;
 
 private:
-	Cloudscape::Lightning::Mesh cube;
+	Entity cube;
 	Cloudscape::Lightning::Shader shader;
 	Cloudscape::Lightning::Camera camera;
 };
