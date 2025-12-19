@@ -5,10 +5,11 @@
 
 namespace Cloudscape {
 
+  struct RenderImpl;
+
   class CLAPI PlatformSystem : public CLSystem
   {
   public:
-
     PlatformSystem(CLWindowCFG cfg);
     ~PlatformSystem();
 
@@ -19,10 +20,9 @@ namespace Cloudscape {
     void ResizeCallback();
 
     std::shared_ptr<CLWindow>& GetWindow();
+    std::unique_ptr<RenderImpl>& GetRenderImpl();
 
   private:
-    struct RenderImpl;
-
     std::unique_ptr<RenderImpl> m_impl;
 
     std::shared_ptr<CLWindow> m_window;

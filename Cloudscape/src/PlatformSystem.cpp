@@ -23,7 +23,7 @@
 
 namespace Cloudscape {
 
-	struct PlatformSystem::RenderImpl
+	struct RenderImpl
 	{
 		SDL_GLContext glContext = nullptr;
 	};
@@ -96,6 +96,11 @@ namespace Cloudscape {
 	std::shared_ptr<CLWindow>& PlatformSystem::GetWindow()
 	{
 		return m_window;
+	}
+
+	std::unique_ptr<RenderImpl>& PlatformSystem::GetRenderImpl()
+	{
+		return m_impl;
 	}
 
 }

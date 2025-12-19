@@ -85,7 +85,7 @@ void SandboxLayer::Update(float dt)
   camera.SetPosition({ 1.0f, 1.0f, 1.0f });
   camera.SetViewport(window->GetWidth(), window->GetHeight());
 
-  cube.transform.SetRotation({0.0f, orbitTime * 120.0f, 0.0f });
+  cube.transform.SetRotation({0.0f, orbitTime * 90.0f, 0.0f });
 
   shader.SetVec3("lightPos", glm::vec3(10.0f, 10.0f, -10.0f));
   shader.SetVec3("eyePos", camera.GetPosition());
