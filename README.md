@@ -6,3 +6,5 @@ Cloudscape is a 3D video game engine (there will be more to say later).
 * 3D game engine with editor
 * Compiles map files into bsp
 * Source-esque
+## How to Pull
+git clone --recursive git://github.com/fidg1t/cloudscape
