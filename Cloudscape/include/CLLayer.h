@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core.h"
+#include "Event.h"
 
 namespace Cloudscape {
 
@@ -11,10 +12,12 @@ namespace Cloudscape {
     virtual ~CLLayer() = default;
 
     // Optional Implementations
-    virtual void Load() {};
-    virtual void Update(float dt) {};
-    virtual void Draw() {};
-    virtual void Unload() {};
+    virtual void OnEvent(Event& event) {}
+    
+    virtual void Load() {}
+    virtual void Update(float dt) {}
+    virtual void Draw() {}
+    virtual void Unload() {}
 
   };
 

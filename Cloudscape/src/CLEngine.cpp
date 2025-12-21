@@ -11,9 +11,11 @@
 //-----------------------------------------------------------------------------
 
 #include "CLEngine.h"
+#include "SDL3/SDL.h"
+
 #include "PlatformSystem.h"
 #include "RenderSystem.h"
-#include "SDL3/SDL.h"
+#include "EventSystem.h"
 
 //-----------------------------------------------------------------------------
 // Methods
@@ -32,6 +34,7 @@ namespace Cloudscape {
 
     AddSystem<PlatformSystem>(cfg.window);
     AddSystem<RenderSystem>();
+    //AddSystem<EventSystem>(m_layers);
   }
 
   CLEngine::~CLEngine()

@@ -8,6 +8,7 @@ namespace Cloudscape {
   {
   public:
     // For derived classes
+    CLSystem() {};
     virtual ~CLSystem() = default;
 
     // Optional Implementations

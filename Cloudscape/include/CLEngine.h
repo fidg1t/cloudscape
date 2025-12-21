@@ -93,6 +93,10 @@ namespace Cloudscape {
       return nullptr;
     }
 
+    const std::vector<std::unique_ptr<CLLayer>>& GetAllLayers() const
+    {
+      return m_layers;
+    }
 
     static CLEngine& Get();
 

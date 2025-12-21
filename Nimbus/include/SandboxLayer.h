@@ -8,7 +8,6 @@
 #include "Camera.h"
 #include "Transform.h"
 
-
 struct Entity
 {
 	Entity() = default;
@@ -22,6 +21,8 @@ class SandboxLayer : public Cloudscape::CLLayer
 public:
 	SandboxLayer();
 	virtual ~SandboxLayer();
+
+	void OnEvent(Cloudscape::Event& event) override;
 
 	void Load() override;
 	void Update(float dt) override;
